@@ -36,4 +36,29 @@ class PetsCubit extends Cubit<PetsState> {
       ));
     }
   }
+
+  Future<void> filterPetModels({required String searchInput}) async {
+    emit(PetsState(
+      petsModels: state.petsModels,
+      errorMessage: '',
+      isLoading: false,
+    ));
+    try {
+      final filteredPetModels = state.petsModels!
+          .where((petModel) =>
+              petModel.name.toLowerCase().contains(searchInput.toLowerCase()))
+          .toList();
+      emit(PetsState(
+        petsModels: filteredPetModels,
+        errorMessage: '',
+        isLoading: false,
+      ));
+    } catch (error) {
+      emit(PetsState(
+        petsModels: null,
+        errorMessage: error.toString(),
+        isLoading: false,
+      ));
+    }
+  }
 }

@@ -4,6 +4,7 @@ import 'package:pets/pets/bloc/cubit/pets_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pets/pets/models/pet_model.dart';
 import 'package:pets/pets/repository/pets_repository.dart';
+import 'package:pets/pets/view/pet_details.dart';
 
 class PetsPage extends StatefulWidget {
   PetsPage({
@@ -26,17 +27,23 @@ class _PetsPageState extends State<PetsPage> {
         builder: (context, state) {
           final petModels = state.petsModels;
 
-          if (petModels == null) {
-            return const Center(
-              child: Text('No pets found'),
-            );
-          }
-
           if (state.isLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
+          if (state.errorMessage.isNotEmpty) {
+            return Center(
+              child: Text('Error: ${state.errorMessage}'),
+            );
+          }
+
+          // if (petModels == null) {
+          //   return const Center(
+          //     child: Text('No pets found'),
+          //   );
+          // }
+
           return Scaffold(
             appBar: AppBar(
               title: const Text('Pets'),
@@ -45,7 +52,7 @@ class _PetsPageState extends State<PetsPage> {
               children: [
                 Expanded(
                   child: ListView.builder(
-                      itemCount: petModels.length,
+                      itemCount: petModels!.length,
                       itemBuilder: (context, index) {
                         return PetModelWidget(petModel: petModels[index]);
                       }),
@@ -53,8 +60,16 @@ class _PetsPageState extends State<PetsPage> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
-                    // onChanged: (){},
                     controller: widget.searchController,
+                    onChanged: (searchInput) async {
+                      await context
+                          .read<PetsCubit>()
+                          .filterPetModels(searchInput: searchInput);
+                    },
+                    // onChanged: () async {
+                    //   await context.read<PetsCubit>().filterPetModels(
+                    //       searchInput: widget.searchController.text);
+                    // },
                     textAlign: TextAlign.center,
                     decoration: const InputDecoration(
                       hintText: 'search',
@@ -83,37 +98,36 @@ class PetModelWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: Row(
-            children: [
-              Column(
-                children: const [
-                  SizedBox(
-                      height: 100,
-                      child: Icon(
-                        Icons.pets,
-                        size: 50,
-                      )),
-                ],
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              Column(
-                children: [
-                  Text(
-                    petModel.name,
-                    style: Theme.of(context).textTheme.headline6,
+        child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+        child: Container(
+            color: Colors.grey[200],
+            child: ListTile(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: ((context) => DetailsPage(petModel: petModel)),
                   ),
-                  Text(petModel.breed),
-                ],
-              )
-            ],
-          ),
-        ),
+                );
+              },
+              leading: const Icon(
+                Icons.pets,
+              ),
+              title: Text(petModel.name),
+              subtitle: Text(petModel.breed),
+              trailing: const Icon(
+                Icons.arrow_circle_right_outlined,
+              ),
+              shape: RoundedRectangleBorder(
+                side: const BorderSide(
+                  color: Colors.black,
+                  width: 1,
+                ),
+                borderRadius: BorderRadius.circular(5),
+              ),
+            )),
       ),
-    );
+    ));
   }
 }
