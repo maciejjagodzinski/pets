@@ -1,6 +1,14 @@
 part of 'pets_cubit.dart';
 
 @immutable
-abstract class PetsState {}
+class PetsState {
+  final List<PetModel>? petsModels;
+  final String errorMessage;
+  final bool isLoading;
 
-class PetsInitial extends PetsState {}
+  const PetsState({
+    required this.petsModels,
+    required this.errorMessage,
+    required this.isLoading,
+  });
+}
