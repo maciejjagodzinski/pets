@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pets/injection_container.dart';
-import 'package:pets/pets/api/pets_api.dart';
 import 'package:pets/pets/bloc/cubit/pets_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pets/pets/models/pets_model.dart';
-import 'package:pets/pets/repository/pets_repository.dart';
 import 'package:pets/pets/view/pet_details.dart';
 
 class PetsPage extends StatefulWidget {
