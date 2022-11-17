@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pets/injection_container.dart';
 import 'package:pets/pets/view/pets.dart';
 
 void main() {
+  configureDependecies();
   runApp(const MyApp());
 }
 
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: PetsPage(),
+      home: const PetsPage(),
     );
   }
 }

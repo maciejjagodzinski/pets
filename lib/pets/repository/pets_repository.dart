@@ -4,7 +4,7 @@ import 'package:pets/pets/api/pets_api.dart';
 import 'package:pets/pets/models/pets_model.dart';
 
 class PetsRepository {
-  PetsRepository(this.petsApi);
+  PetsRepository({required this.petsApi});
 
   final PetsAPI petsApi;
 

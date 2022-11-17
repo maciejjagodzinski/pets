@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pets/injection_container.dart';
 import 'package:pets/pets/api/pets_api.dart';
 import 'package:pets/pets/bloc/cubit/pets_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,9 +19,8 @@ class PetsPage extends StatefulWidget {
 class _PetsPageState extends State<PetsPage> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          PetsCubit(PetsRepository(PetsAPI()))..showPetModels(),
+    return BlocProvider<PetsCubit>(
+      create: (context) => getIt()..showPetModels(),
       child: BlocBuilder<PetsCubit, PetsState>(
         builder: (context, state) {
           final petModels = state.petsModels;

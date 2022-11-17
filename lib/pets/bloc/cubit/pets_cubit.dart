@@ -9,7 +9,7 @@ part 'pets_state.dart';
 part 'pets_cubit.freezed.dart';
 
 class PetsCubit extends Cubit<PetsState> {
-  PetsCubit(this._petsRepository)
+  PetsCubit({required this.petsRepository})
       : super(const PetsState(
           petsModels: null,
           searchResult: null,
@@ -17,7 +17,7 @@ class PetsCubit extends Cubit<PetsState> {
           isLoading: false,
         ));
 
-  final PetsRepository _petsRepository;
+  final PetsRepository petsRepository;
 
   Future<void> showPetModels() async {
     emit(const PetsState(
@@ -27,7 +27,7 @@ class PetsCubit extends Cubit<PetsState> {
       isLoading: true,
     ));
     try {
-      final petModels = await _petsRepository.getPetModels();
+      final petModels = await petsRepository.getPetModels();
       emit(PetsState(
         petsModels: petModels,
         searchResult: petModels,
