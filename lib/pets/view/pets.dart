@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:pets/pets/api/pets_api.dart';
 import 'package:pets/pets/bloc/cubit/pets_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pets/pets/models/pet_model.dart';
+import 'package:pets/pets/models/pets_model.dart';
 import 'package:pets/pets/repository/pets_repository.dart';
 import 'package:pets/pets/view/pet_details.dart';
 
 class PetsPage extends StatefulWidget {
-  PetsPage({
+  const PetsPage({
     Key? key,
   }) : super(key: key);
-
-  final searchController = TextEditingController();
 
   @override
   State<PetsPage> createState() => _PetsPageState();
@@ -26,6 +24,7 @@ class _PetsPageState extends State<PetsPage> {
       child: BlocBuilder<PetsCubit, PetsState>(
         builder: (context, state) {
           final petModels = state.petsModels;
+          final searchResult = state.searchResult;
 
           if (state.isLoading) {
             return const Center(
@@ -38,11 +37,23 @@ class _PetsPageState extends State<PetsPage> {
             );
           }
 
-          // if (petModels == null) {
-          //   return const Center(
-          //     child: Text('No pets found'),
-          //   );
-          // }
+          if (petModels == null || searchResult == null) {
+            return Scaffold(
+              body: Center(
+                child: Column(
+                  children: [
+                    const Text('No pets found'),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Try again'),
+                    )
+                  ],
+                ),
+              ),
+            );
+          }
 
           return Scaffold(
             appBar: AppBar(
@@ -52,24 +63,19 @@ class _PetsPageState extends State<PetsPage> {
               children: [
                 Expanded(
                   child: ListView.builder(
-                      itemCount: petModels!.length,
+                      itemCount: searchResult.length,
                       itemBuilder: (context, index) {
-                        return PetModelWidget(petModel: petModels[index]);
+                        return PetModelWidget(petModel: searchResult[index]);
                       }),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
-                    controller: widget.searchController,
                     onChanged: (searchInput) async {
                       await context
                           .read<PetsCubit>()
-                          .filterPetModels(searchInput: searchInput);
+                          .showFilterPetModels(searchInput: searchInput);
                     },
-                    // onChanged: () async {
-                    //   await context.read<PetsCubit>().filterPetModels(
-                    //       searchInput: widget.searchController.text);
-                    // },
                     textAlign: TextAlign.center,
                     decoration: const InputDecoration(
                       hintText: 'search',

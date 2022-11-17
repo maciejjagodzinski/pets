@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pets/pets/models/pet_model.dart';
+import 'package:pets/pets/models/pets_model.dart';
 
 class DetailsPage extends StatelessWidget {
   const DetailsPage({
