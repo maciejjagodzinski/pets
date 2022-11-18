@@ -5,16 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pets/pets/models/pets_model.dart';
 import 'package:pets/pets/view/pet_details.dart';
 
-class PetsPage extends StatefulWidget {
+class PetsPage extends StatelessWidget {
   const PetsPage({
     Key? key,
   }) : super(key: key);
 
-  @override
-  State<PetsPage> createState() => _PetsPageState();
-}
-
-class _PetsPageState extends State<PetsPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<PetsCubit>(
