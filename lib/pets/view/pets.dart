@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pets/injection_container.dart';
 import 'package:pets/pets/bloc/cubit/pets_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pets/pets/models/pets_model.dart';
-import 'package:pets/pets/view/pet_details.dart';
+import 'package:pets/pets/widgets/pet_widget.dart';
 
 class PetsPage extends StatelessWidget {
   const PetsPage({
@@ -58,7 +57,7 @@ class PetsPage extends StatelessWidget {
                   child: ListView.builder(
                       itemCount: searchResult.length,
                       itemBuilder: (context, index) {
-                        return PetModelWidget(petModel: searchResult[index]);
+                        return PetWidget(petModel: searchResult[index]);
                       }),
                 ),
                 Padding(
@@ -83,50 +82,5 @@ class PetsPage extends StatelessWidget {
         },
       ),
     );
-  }
-}
-
-class PetModelWidget extends StatelessWidget {
-  const PetModelWidget({
-    Key? key,
-    required this.petModel,
-  }) : super(key: key);
-
-  final PetModel petModel;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-        child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Center(
-        child: Container(
-            color: Colors.grey[200],
-            child: ListTile(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: ((context) => DetailsPage(petModel: petModel)),
-                  ),
-                );
-              },
-              leading: const Icon(
-                Icons.pets,
-              ),
-              title: Text(petModel.name),
-              subtitle: Text(petModel.breed),
-              trailing: const Icon(
-                Icons.arrow_circle_right_outlined,
-              ),
-              shape: RoundedRectangleBorder(
-                side: const BorderSide(
-                  color: Colors.black,
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(5),
-              ),
-            )),
-      ),
-    ));
   }
 }
