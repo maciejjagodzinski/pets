@@ -15,7 +15,6 @@ class PetsPage extends StatelessWidget {
       create: (context) => getIt()..showPetModels(),
       child: BlocBuilder<PetsCubit, PetsState>(
         builder: (context, state) {
-          final petModels = state.petsModels;
           final searchResult = state.searchResult;
 
           if (state.isLoading) {
@@ -23,27 +22,9 @@ class PetsPage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           }
-          if (state.errorMessage.isNotEmpty) {
+          if (state.errorMessage != null) {
             return Center(
               child: Text('Error: ${state.errorMessage}'),
-            );
-          }
-
-          if (petModels == null || searchResult == null) {
-            return Scaffold(
-              body: Center(
-                child: Column(
-                  children: [
-                    const Text('No pets found'),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text('Try again'),
-                    )
-                  ],
-                ),
-              ),
             );
           }
 

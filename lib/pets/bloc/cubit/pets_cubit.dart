@@ -9,9 +9,9 @@ part 'pets_cubit.freezed.dart';
 class PetsCubit extends Cubit<PetsState> {
   PetsCubit({required this.petsRepository})
       : super(const PetsState(
-          petsModels: null,
-          searchResult: null,
-          errorMessage: '',
+          petsModels: [],
+          searchResult: [],
+          errorMessage: null,
           isLoading: false,
         ));
 
@@ -19,9 +19,9 @@ class PetsCubit extends Cubit<PetsState> {
 
   Future<void> showPetModels() async {
     emit(const PetsState(
-      petsModels: null,
-      searchResult: null,
-      errorMessage: '',
+      petsModels: [],
+      searchResult: [],
+      errorMessage: null,
       isLoading: true,
     ));
     try {
@@ -29,13 +29,13 @@ class PetsCubit extends Cubit<PetsState> {
       emit(PetsState(
         petsModels: petModels,
         searchResult: petModels,
-        errorMessage: '',
+        errorMessage: null,
         isLoading: false,
       ));
     } catch (error) {
       emit(PetsState(
-        petsModels: null,
-        searchResult: null,
+        petsModels: [],
+        searchResult: [],
         errorMessage: error.toString(),
         isLoading: false,
       ));
@@ -46,17 +46,17 @@ class PetsCubit extends Cubit<PetsState> {
     emit(PetsState(
       petsModels: state.petsModels,
       searchResult: state.searchResult,
-      errorMessage: '',
+      errorMessage: null,
       isLoading: false,
     ));
-    final searchResult = state.petsModels!
+    final searchResult = state.petsModels
         .where((petModel) =>
             petModel.name.toLowerCase().contains(searchInput.toLowerCase()))
         .toList();
     emit(PetsState(
       petsModels: state.petsModels,
       searchResult: searchResult,
-      errorMessage: '',
+      errorMessage: null,
       isLoading: false,
     ));
   }

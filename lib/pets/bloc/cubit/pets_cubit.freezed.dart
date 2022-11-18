@@ -16,9 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$PetsState {
-  List<PetModel>? get petsModels => throw _privateConstructorUsedError;
-  List<PetModel>? get searchResult => throw _privateConstructorUsedError;
-  String get errorMessage => throw _privateConstructorUsedError;
+  List<PetModel> get petsModels => throw _privateConstructorUsedError;
+  List<PetModel> get searchResult => throw _privateConstructorUsedError;
+  String? get errorMessage => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -32,9 +32,9 @@ abstract class $PetsStateCopyWith<$Res> {
       _$PetsStateCopyWithImpl<$Res, PetsState>;
   @useResult
   $Res call(
-      {List<PetModel>? petsModels,
-      List<PetModel>? searchResult,
-      String errorMessage,
+      {List<PetModel> petsModels,
+      List<PetModel> searchResult,
+      String? errorMessage,
       bool isLoading});
 }
 
@@ -51,24 +51,24 @@ class _$PetsStateCopyWithImpl<$Res, $Val extends PetsState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? petsModels = freezed,
-    Object? searchResult = freezed,
-    Object? errorMessage = null,
+    Object? petsModels = null,
+    Object? searchResult = null,
+    Object? errorMessage = freezed,
     Object? isLoading = null,
   }) {
     return _then(_value.copyWith(
-      petsModels: freezed == petsModels
+      petsModels: null == petsModels
           ? _value.petsModels
           : petsModels // ignore: cast_nullable_to_non_nullable
-              as List<PetModel>?,
-      searchResult: freezed == searchResult
+              as List<PetModel>,
+      searchResult: null == searchResult
           ? _value.searchResult
           : searchResult // ignore: cast_nullable_to_non_nullable
-              as List<PetModel>?,
-      errorMessage: null == errorMessage
+              as List<PetModel>,
+      errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -85,9 +85,9 @@ abstract class _$$_PetsStateCopyWith<$Res> implements $PetsStateCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {List<PetModel>? petsModels,
-      List<PetModel>? searchResult,
-      String errorMessage,
+      {List<PetModel> petsModels,
+      List<PetModel> searchResult,
+      String? errorMessage,
       bool isLoading});
 }
 
@@ -102,24 +102,24 @@ class __$$_PetsStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? petsModels = freezed,
-    Object? searchResult = freezed,
-    Object? errorMessage = null,
+    Object? petsModels = null,
+    Object? searchResult = null,
+    Object? errorMessage = freezed,
     Object? isLoading = null,
   }) {
     return _then(_$_PetsState(
-      petsModels: freezed == petsModels
+      petsModels: null == petsModels
           ? _value._petsModels
           : petsModels // ignore: cast_nullable_to_non_nullable
-              as List<PetModel>?,
-      searchResult: freezed == searchResult
+              as List<PetModel>,
+      searchResult: null == searchResult
           ? _value._searchResult
           : searchResult // ignore: cast_nullable_to_non_nullable
-              as List<PetModel>?,
-      errorMessage: null == errorMessage
+              as List<PetModel>,
+      errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -132,33 +132,29 @@ class __$$_PetsStateCopyWithImpl<$Res>
 
 class _$_PetsState implements _PetsState {
   const _$_PetsState(
-      {required final List<PetModel>? petsModels,
-      required final List<PetModel>? searchResult,
-      required this.errorMessage,
+      {required final List<PetModel> petsModels,
+      required final List<PetModel> searchResult,
+      this.errorMessage,
       required this.isLoading})
       : _petsModels = petsModels,
         _searchResult = searchResult;
 
-  final List<PetModel>? _petsModels;
+  final List<PetModel> _petsModels;
   @override
-  List<PetModel>? get petsModels {
-    final value = _petsModels;
-    if (value == null) return null;
+  List<PetModel> get petsModels {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_petsModels);
   }
 
-  final List<PetModel>? _searchResult;
+  final List<PetModel> _searchResult;
   @override
-  List<PetModel>? get searchResult {
-    final value = _searchResult;
-    if (value == null) return null;
+  List<PetModel> get searchResult {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableListView(_searchResult);
   }
 
   @override
-  final String errorMessage;
+  final String? errorMessage;
   @override
   final bool isLoading;
 
@@ -199,17 +195,17 @@ class _$_PetsState implements _PetsState {
 
 abstract class _PetsState implements PetsState {
   const factory _PetsState(
-      {required final List<PetModel>? petsModels,
-      required final List<PetModel>? searchResult,
-      required final String errorMessage,
+      {required final List<PetModel> petsModels,
+      required final List<PetModel> searchResult,
+      final String? errorMessage,
       required final bool isLoading}) = _$_PetsState;
 
   @override
-  List<PetModel>? get petsModels;
+  List<PetModel> get petsModels;
   @override
-  List<PetModel>? get searchResult;
+  List<PetModel> get searchResult;
   @override
-  String get errorMessage;
+  String? get errorMessage;
   @override
   bool get isLoading;
   @override
